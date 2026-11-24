@@ -1,202 +1,56 @@
-# 🎙️ PodcastAI
+# PodcastAI
 
-**An AI-powered mobile application for creating and experiencing personalized podcasts.**
+> Portfolio mirror of the team project maintained at
+> [Travel-Assistant-Project/PodcastAI](https://github.com/Travel-Assistant-Project/PodcastAI).
+> The canonical repository is the source of truth for current code and setup instructions.
 
-PodcastAI is a mobile application project that brings together mobile development, backend services, and AI-powered capabilities in a modular architecture. The project is designed to provide a foundation for generating AI-assisted podcast experiences through an integrated application and service ecosystem.
+PodcastAI is a team-built platform for generating and listening to personalized podcasts. The full project combines a React Native mobile client, an ASP.NET Core backend, and a Python/FastAPI AI service.
 
-## ✨ Overview
+## My contribution
 
-PodcastAI consists of three main components:
+I built part of the project's initial backend foundation:
 
-- **Mobile Application:** A cross-platform mobile interface built with React Native and Expo.
-- **Backend API:** A .NET-based backend responsible for application-level operations and communication between services.
-- **AI Service:** A Python-based service built with FastAPI, designed to support AI-related functionality and text-to-speech integrations.
+- added JWT token generation and authentication middleware configuration
+- introduced the EF Core `AppDbContext` and PostgreSQL connection setup
+- created the `User` entity and initial database migration
+- added login, registration, and response DTOs
+- created the initial authentication controller scaffolding
 
-The modular structure separates mobile, backend, and AI responsibilities, making the application easier to develop, maintain, and extend.
+**Evidence:** [backend foundation commit](https://github.com/Travel-Assistant-Project/PodcastAI/commit/c2e44b6f67ae5e7b489c91bb4cf90d5b100d7076)
 
-## 🏗️ Architecture
+The linked commit used mock users in the first controller scaffold; it did not yet implement complete production registration or password verification. The project evolved later through the team's subsequent work. This distinction keeps the portfolio claim limited to what the commit demonstrates.
 
-```text
-PodcastAI/
-├── ai-service/    # Python / FastAPI AI service
-├── backend/       # .NET backend API
-├── mobile/        # React Native / Expo application
-├── .gitignore
-├── README.md
-└── ai-podcast-platform.sln
-```
-
-### Technology Stack
+## Team project architecture
 
 | Component | Technologies |
-|---|---|
-| Mobile | React Native, Expo, TypeScript |
-| Backend | C#, .NET Web API |
-| AI Service | Python, FastAPI, Uvicorn |
-| API Communication | HTTP / REST |
-| Development Tools | Git, GitHub, npm, pip |
+| --- | --- |
+| Mobile client | React Native, Expo, TypeScript |
+| Backend API | C#, ASP.NET Core, Entity Framework Core, Hangfire |
+| AI service | Python, FastAPI |
+| Data | PostgreSQL |
+| Integrations | text generation, translation, and text-to-speech services |
+| Communication | HTTP/REST between application services |
 
-## 🚀 Getting Started
+## What the contribution demonstrates
 
-### Prerequisites
+- configuring JWT-based authentication in ASP.NET Core
+- modelling users with EF Core and PostgreSQL
+- creating and applying an initial relational database migration
+- separating request and response contracts with DTOs
+- contributing a scoped backend foundation to a multi-service team project
 
-Make sure the following tools are installed:
-
-- [Node.js and npm](https://nodejs.org/)
-- [Python 3](https://www.python.org/)
-- [Git](https://git-scm.com/)
-- [.NET SDK](https://dotnet.microsoft.com/download)
-- [Expo Go](https://expo.dev/go/) or an appropriate mobile simulator
-
-### 1. Clone the Repository
+## Inspect or build the canonical project
 
 ```bash
 git clone https://github.com/Travel-Assistant-Project/PodcastAI.git
 cd PodcastAI
+dotnet restore ai-podcast-platform.sln
+dotnet build ai-podcast-platform.sln
 ```
 
-### 2. Set Up the AI Service
+The mobile and AI services have their own dependencies and runtime configuration. Refer to the
+[canonical repository](https://github.com/Travel-Assistant-Project/PodcastAI) for current setup instructions. Use local environment variables for database credentials, signing secrets, and third-party API keys; never commit real secrets.
 
-Navigate to the AI service directory:
+## Repository status
 
-```bash
-cd ai-service
-python3 -m venv venv
-```
-
-Activate the virtual environment.
-
-**macOS / Linux**
-
-```bash
-source venv/bin/activate
-```
-
-**Windows**
-
-```powershell
-venv\Scripts\activate
-```
-
-Install the project's Python dependencies using the available dependency file. If the repository contains `requirements.txt`, run:
-
-```bash
-pip install -r requirements.txt
-```
-
-Start the FastAPI service:
-
-```bash
-uvicorn main:app --reload --port 8000
-```
-
-If the application entry point is located elsewhere, adjust the Uvicorn module path accordingly.
-
-The service should be available at:
-
-- API: `http://localhost:8000`
-- Interactive API documentation: `http://localhost:8000/docs`
-
-### 3. Set Up the Backend
-
-Open a separate terminal and navigate to the backend project directory.
-
-```bash
-cd backend
-```
-
-Locate the directory containing the `.csproj` file, then restore dependencies and run the application:
-
-```bash
-dotnet restore
-dotnet run
-```
-
-The backend URL and port are determined by the project's launch settings.
-
-### 4. Set Up the Mobile Application
-
-Open another terminal:
-
-```bash
-cd mobile
-npm install
-```
-
-Configure the backend API URL in the mobile application's environment configuration.
-
-For example, when running the app in the iOS Simulator:
-
-```env
-EXPO_PUBLIC_API_BASE_URL=http://localhost:5191
-```
-
-Replace the example port with the actual backend port. Android emulators and physical devices may require a different host address.
-
-Start the Expo development server:
-
-```bash
-npx expo start
-```
-
-Follow the terminal instructions to open the application in a simulator or Expo Go.
-
-## 🔧 Configuration
-
-Configure environment variables separately for each service as required by its implementation.
-
-Example mobile configuration:
-
-```env
-EXPO_PUBLIC_API_BASE_URL=http://localhost:5191
-```
-
-Keep API keys, database credentials, and other secrets in environment files or a secure configuration system. Do not commit sensitive values to version control.
-
-## 🧩 Development Workflow
-
-For local development, run each component in a separate terminal:
-
-| Terminal | Component | Command |
-|---|---|---|
-| 1 | AI Service | `uvicorn main:app --reload --port 8000` |
-| 2 | Backend | `dotnet run` |
-| 3 | Mobile | `npx expo start` |
-
-Ensure that the mobile application points to the correct backend address and that the backend can reach the AI service when required.
-
-## 🛠️ Troubleshooting
-
-**Python dependencies cannot be installed**
-
-Activate the virtual environment and verify that the dependency file exists in the current directory.
-
-**The mobile application cannot connect to the backend**
-
-Check the API base URL, the backend's running port, and network accessibility. Remember that `localhost` refers to the device or emulator itself when used from a mobile environment.
-
-**The FastAPI service does not start**
-
-Verify the Python entry-point file and ensure that the Uvicorn module path matches the actual project structure.
-
-**The .NET application does not start**
-
-Run `dotnet restore` in the directory containing the project file and check the configured SDK version.
-
-## 🤝 Contributing
-
-Contributions, suggestions, and bug reports are welcome.
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes with a descriptive message.
-4. Push your branch.
-5. Open a pull request describing your changes.
-
-## 📄 License
-
-No license has been specified in this README. Please check the repository's licensing terms before distributing or reusing the project.
-
----
-
-Developed as part of the **Travel Assistant Project**.
+This user-owned repository is kept as a portfolio mirror. Issues and pull requests for the active team project should be opened in the [canonical repository](https://github.com/Travel-Assistant-Project/PodcastAI).
